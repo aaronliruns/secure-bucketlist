@@ -1,4 +1,4 @@
-# app/models/Bucketlist
+# app/models/Bucketlist.py
 
 from app import db
 

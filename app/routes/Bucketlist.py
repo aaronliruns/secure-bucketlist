@@ -1,8 +1,9 @@
-from app import flaskapp
+from app import flaskapp, auth
 from flask import request, jsonify, abort
 from app.models.Bucketlist import Bucketlist
 
 @flaskapp.route('/bucketlists/', methods=['POST', 'GET'])
+@auth.login_required
 def bucketlists():
     if request.method == "POST":
         name = str(request.data.get('name', ''))
@@ -35,6 +36,7 @@ def bucketlists():
         return response
 
 @flaskapp.route('/bucketlists/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@auth.login_required
 def bucketlist_manipulation(id, **kwargs):
     # retrieve a buckelist using it's ID
     bucketlist = Bucketlist.query.filter_by(id=id).first()
